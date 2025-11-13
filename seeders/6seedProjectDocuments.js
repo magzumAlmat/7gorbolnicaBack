@@ -8,8 +8,8 @@ module.exports = {
       { project_id: 1, document_id: 2 },
     ]);
   },
-};
 
-down: async (queryInterface, Sequelize) => {
-  await queryInterface.bulkDelete("project_documents", null, {});
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkDelete("project_documents", null, {});
+  },
 };

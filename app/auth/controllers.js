@@ -556,82 +556,138 @@ const logOut = async (req, res) => {
     res.status(200).json({ message: "Logout successful" });
 };
 
-const logIn = async (req, res) =>{
-    console.log('iam in auth user')
-    let user = await User.findOne({where: {email: req.body.email}});
+// const logIn = async (req, res) =>{
+//     console.log('iam in auth user')
+//     let user = await User.findOne({where: {email: req.body.email}});
 
-    const {  password } = req.body;
+//     const {  password } = req.body;
 
-    // const isPasswordValid = await bcrypt.compare(password, user.password);
-    if(password===user.password){
-                      isPasswordValid=true
-                    }
-                    else{
-                      isPasswordValid=false
-                    }
-    console.log(user,'COMPARE=',password,'==',user.password,'isMtch=',isPasswordValid)
+//     // const isPasswordValid = await bcrypt.compare(password, user.password);
+//     if(password===user.password){
+//                       isPasswordValid=true
+//                     }
+//                     else{
+//                       isPasswordValid=false
+//                     }
+//     console.log(user,'COMPARE=',password,'==',user.password,'isMtch=',isPasswordValid)
+//     if (!isPasswordValid) {
+//       return res.status(401).json({ error: 'Invalid email or password' });
+//     }
+//     const token = jwt.sign({
+//         id: user.id,
+//         email: user.email,
+//         password:user.password,
+//     }, jwtOptions.secretOrKey, {
+//         expiresIn: 24 * 60 * 60 * 365
+//     });
+//     res.status(200).json({ prompt: 'Authorization successful' ,token});
+
+
+
+//   // console.log('LOGIN ',req.body.email,req.body.password)
+//   //   try {
+//   //       if(
+//   //           !req.body.email
+//   //           || req.body.email.length === 0
+//   //           || !req.body.password
+//   //           || req.body.password.length === 0){
+//   //               res.status(401).send({message: "Bad credentials"})
+//   //           }else{
+//   //               const user = await User.findOne({
+//   //                   where: {
+//   //                       email: req.body.email
+//   //                   }
+//   //               })
+//   //               if(!user) return res.status(401).send({message: "User with that email is not exists"})
+
+                
+//   //               // const isMatch = await bcrypt.compare(req.body.password, user.password)
+//   //               if(req.body.password===user.password){
+//   //                 isMatch=true
+//   //               }
+//   //               else{
+//   //                 isMatch=false
+//   //               }
+
+//   //               console.log(user,'COMPARE=',typeof(req.body.password),'==',typeof(user.password),'isMtch=',isMatch)
+                
+//   //               if(isMatch){
+//   //                   const role = await Role.findByPk(user.roleId)
+//   //                   const token = jwt.sign({
+//   //                       id: user.id,
+//   //                       email: user.email,
+//   //                       role: {
+//   //                           id: role.id,
+//   //                           name: role.name
+//   //                       }
+//   //                   }, jwtOptions.secretOrKey, {
+//   //                       expiresIn: 24 * 60 * 60 * 365
+//   //                   });
+//   //                   res.status(200).send({token});
+//   //               }else{
+//   //                   res.status(401).send({message: "Password is incorrect"})
+//   //               }
+//   //           }
+//   //   } catch (error) {
+//   //       res.status(500).send(error)
+//   //   }      
+// }
+
+const logIn = async (req, res) => {
+  console.log('Login attempt:', req.body.email);
+  
+  try {
+    const { email, password } = req.body;
+
+    // Проверяем, что поля заполнены
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required' });
+    }
+
+    // Ищем пользователя по email
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
+    // Сравниваем пароли (с bcrypt)
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
     if (!isPasswordValid) {
       return res.status(401).json({ error: 'Invalid email or password' });
     }
-    const token = jwt.sign({
+
+    // Создаем JWT токен
+    const token = jwt.sign(
+      {
         id: user.id,
         email: user.email,
-        password:user.password,
-    }, jwtOptions.secretOrKey, {
-        expiresIn: 24 * 60 * 60 * 365
+      },
+      jwtOptions.secretOrKey,
+      { expiresIn: '365d' }
+    );
+
+    console.log('Login successful for:', user.email);
+
+    res.status(200).json({ 
+      prompt: 'Authorization successful', 
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        role: user.role
+      }
     });
-    res.status(200).json({ prompt: 'Authorization successful' ,token});
+
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
 
 
 
-  // console.log('LOGIN ',req.body.email,req.body.password)
-  //   try {
-  //       if(
-  //           !req.body.email
-  //           || req.body.email.length === 0
-  //           || !req.body.password
-  //           || req.body.password.length === 0){
-  //               res.status(401).send({message: "Bad credentials"})
-  //           }else{
-  //               const user = await User.findOne({
-  //                   where: {
-  //                       email: req.body.email
-  //                   }
-  //               })
-  //               if(!user) return res.status(401).send({message: "User with that email is not exists"})
-
-                
-  //               // const isMatch = await bcrypt.compare(req.body.password, user.password)
-  //               if(req.body.password===user.password){
-  //                 isMatch=true
-  //               }
-  //               else{
-  //                 isMatch=false
-  //               }
-
-  //               console.log(user,'COMPARE=',typeof(req.body.password),'==',typeof(user.password),'isMtch=',isMatch)
-                
-  //               if(isMatch){
-  //                   const role = await Role.findByPk(user.roleId)
-  //                   const token = jwt.sign({
-  //                       id: user.id,
-  //                       email: user.email,
-  //                       role: {
-  //                           id: role.id,
-  //                           name: role.name
-  //                       }
-  //                   }, jwtOptions.secretOrKey, {
-  //                       expiresIn: 24 * 60 * 60 * 365
-  //                   });
-  //                   res.status(200).send({token});
-  //               }else{
-  //                   res.status(401).send({message: "Password is incorrect"})
-  //               }
-  //           }
-  //   } catch (error) {
-  //       res.status(500).send(error)
-  //   }      
-}
 
 
 module.exports={

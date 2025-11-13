@@ -2,12 +2,18 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('project_documents', {
+    await queryInterface.createTable('Project_documents', {
+      id: {
+        type: Sequelize.BIGINT,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false
+      },
       project_id: {
         type: Sequelize.BIGINT,
         allowNull: false,
         references: {
-          model: 'projects',
+          model: 'Projects',
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -17,16 +23,24 @@ module.exports = {
         type: Sequelize.BIGINT,
         allowNull: false,
         references: {
-          model: 'documents',
+          model: 'Documents',
           key: 'id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('project_documents');
+    await queryInterface.dropTable('Project_documents');
   }
 };

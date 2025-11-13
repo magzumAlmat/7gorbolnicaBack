@@ -1,33 +1,21 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.addColumn('documents', 'createdAt', {
-      allowNull: true,
-      type: Sequelize.DATE
-    });
-    await queryInterface.addColumn('documents', 'updatedAt', {
-      allowNull: true,
-      type: Sequelize.DATE
-    });
-
-    await queryInterface.sequelize.query(
-      'UPDATE "documents" SET "createdAt" = NOW(), "updatedAt" = NOW() WHERE "createdAt" IS NULL;'
-    );
-
-    await queryInterface.changeColumn('documents', 'createdAt', {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.addColumn('Documents', 'createdAt', {
       allowNull: false,
-      type: Sequelize.DATE
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     });
-    await queryInterface.changeColumn('documents', 'updatedAt', {
+    await queryInterface.addColumn('Documents', 'updatedAt', {
       allowNull: false,
-      type: Sequelize.DATE
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     });
   },
 
-  async down (queryInterface, Sequelize) {
-    await queryInterface.removeColumn('documents', 'createdAt');
-    await queryInterface.removeColumn('documents', 'updatedAt');
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.removeColumn('Documents', 'createdAt');
+    await queryInterface.removeColumn('Documents', 'updatedAt');
   }
 };

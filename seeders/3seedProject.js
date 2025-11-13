@@ -7,8 +7,8 @@ module.exports={
             {project_name:'admin templates'},
         ])
     },
-}
 
-down:async(queryInterface,Sequelize)=>{
-    await queryInterface.bulkDelete('projects',null,{})
+    down:async(queryInterface,Sequelize)=>{
+        await queryInterface.bulkDelete('projects',null,{})
+    }
 }

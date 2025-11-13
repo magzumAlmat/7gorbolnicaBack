@@ -5,8 +5,8 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await UserProjects.bulkCreate([{ user_id: 1, project_id: 1 }]);
   },
-};
 
-down: async (queryInterface, Sequelize) => {
-  await queryInterface.bulkDelete("user_projects", null, {});
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkDelete("user_projects", null, {});
+  },
 };

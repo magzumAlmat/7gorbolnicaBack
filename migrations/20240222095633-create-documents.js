@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('documents', {
+    await queryInterface.createTable('Documents', {
       id: {
         type: Sequelize.BIGINT,
         autoIncrement: true,
@@ -10,15 +10,25 @@ module.exports = {
         allowNull: false
       },
       document_name: {
-        type: Sequelize.STRING(255)
+        type: Sequelize.STRING(255),
+        allowNull: false
       },
       document_content: {
-        type: Sequelize.JSON
+        type: Sequelize.JSON,
+        allowNull: true // Assuming content can be null
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       }
     });
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('documents');
+    await queryInterface.dropTable('Documents');
   }
 };
