@@ -634,7 +634,7 @@ const logOut = async (req, res) => {
 // }
 
 const logIn = async (req, res) => {
-  console.log('Login attempt:', req.body.email);
+  console.log('Login STARTED:', req.body.email);
   
   try {
     const { email, password } = req.body;

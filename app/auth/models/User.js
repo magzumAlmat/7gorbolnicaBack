@@ -31,8 +31,7 @@ const User = sequelize.define('User', {
       },
    
 
-},{
-    timestamps:false,})
+})
 
 User.belongsTo(Role,{foreignKey:'roleId'})
 // User.belongsTo(Company,{foreignKey:'companyId'})

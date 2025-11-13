@@ -6,7 +6,7 @@ module.exports={
     up:async(queryInterface,Sequelize)=>{
         const hashedPassword = await bcrypt.hash('admin123', 10); // Hash the password
         await User.bulkCreate([
-            {email:'admin@mail.ru', password: hashedPassword, roleId: 1}, // Add hashed password
+            {email:'admin@mail.ru', password: hashedPassword, roleId: 1, createdAt: new Date(), updatedAt: new Date()}, // Add hashed password
         ])
     },
 

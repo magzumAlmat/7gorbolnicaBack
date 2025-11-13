@@ -4,10 +4,10 @@ const sequelize = require('../config/db')
 module.exports={
     up:async(queryInterface,Sequelize)=>{
         await Role.bulkCreate([
-            {name:'admin'},
-            {name:'client'},//  тот кто держит уже билборды и его  проверяет инспектор
-            {name:'customer'},// тот  кто будет закупать  рекламу и отдавать на проверку
-            {name:'inspector'},// тот  кто будет закупать  рекламу и отдавать на проверку
+            {name:'admin', createdAt: new Date(), updatedAt: new Date()},
+            {name:'client', createdAt: new Date(), updatedAt: new Date()},//  тот кто держит уже билборды и его  проверяет инспектор
+            {name:'customer', createdAt: new Date(), updatedAt: new Date()},// тот  кто будет закупать  рекламу и отдавать на проверку
+            {name:'inspector', createdAt: new Date(), updatedAt: new Date()},// тот  кто будет закупать  рекламу и отдавать на проверку
             // advertiser//рекламодатель
             // bannerholder//держатель баннера
             // manager
