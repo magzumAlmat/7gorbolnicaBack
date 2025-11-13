@@ -4,17 +4,23 @@ const Project = require('./Project');
 const Document = require('./Document');
 
 const ProjectDocument = sequelize.define('ProjectDocument', {
+    id: {
+        type: DataTypes.BIGINT,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false
+    },
     project_id: {
         type: DataTypes.BIGINT,
-        primaryKey: true
+        allowNull: false
     },
     document_id: {
         type: DataTypes.BIGINT,
-        primaryKey: true
+        allowNull: false
     }
 }, {
-    tableName: 'project_documents',
-    timestamps: false
+    tableName: 'Project_documents',
+    timestamps: true
 });
 
 ProjectDocument.belongsTo(Project, { foreignKey: 'project_id' });

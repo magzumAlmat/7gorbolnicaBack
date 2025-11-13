@@ -7,8 +7,7 @@ const Project = sequelize.define('Project', {
         type: DataTypes.STRING(255)
     }
 }, {
-    tableName: 'projects',
-    timestamps: false
+    tableName: 'projects'
 });
 
 module.exports = Project;

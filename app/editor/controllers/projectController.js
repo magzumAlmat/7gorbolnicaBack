@@ -7,7 +7,7 @@ async function getAllUserProjects(req, res) {
         
         const userId = req.user.id;
         const userProjects = await UserProject.findAll({
-            where: userId,
+            where: { user_id: userId },
             include: [Project]
         })
         console.log(userProjects)
@@ -117,6 +117,9 @@ async function getProjectById(req, res) {
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 }
+
+
+
 
 module.exports = {
     createProject,

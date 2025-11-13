@@ -23,6 +23,7 @@ async function getAllProjectDocuments(req, res) {
 }
 
 async function getAllAdminDocuments(req, res) {
+    console.log('getAllAdminDocuments started');
     try {
         
         const projectId = req.params.id;
