@@ -1,6 +1,6 @@
 const InformationMaterial = require('../models/InformationMaterial');
 
-async function createInformationMaterial(req, res) {
+async function create(req, res) {
     try {
         const newInformationMaterial = await InformationMaterial.create(req.body);
         return res.status(201).json(newInformationMaterial);
@@ -10,7 +10,7 @@ async function createInformationMaterial(req, res) {
     }
 }
 
-async function getAllInformationMaterials(req, res) {
+async function getAll(req, res) {
     try {
         const informationMaterials = await InformationMaterial.findAll();
         return res.status(200).json(informationMaterials);
@@ -20,7 +20,7 @@ async function getAllInformationMaterials(req, res) {
     }
 }
 
-async function getInformationMaterialById(req, res) {
+async function getById(req, res) {
     try {
         const { id } = req.params;
         const informationMaterial = await InformationMaterial.findByPk(id);
@@ -34,7 +34,7 @@ async function getInformationMaterialById(req, res) {
     }
 }
 
-async function updateInformationMaterial(req, res) {
+async function update(req, res) {
     try {
         const { id } = req.params;
         const [updated] = await InformationMaterial.update(req.body, {
@@ -51,7 +51,7 @@ async function updateInformationMaterial(req, res) {
     }
 }
 
-async function deleteInformationMaterial(req, res) {
+async function remove(req, res) {
     try {
         const { id } = req.params;
         const deleted = await InformationMaterial.destroy({
@@ -68,9 +68,9 @@ async function deleteInformationMaterial(req, res) {
 }
 
 module.exports = {
-    createInformationMaterial,
-    getAllInformationMaterials,
-    getInformationMaterialById,
-    updateInformationMaterial,
-    deleteInformationMaterial
+    create,
+    getAll,
+    getById,
+    update,
+    remove
 };

@@ -1,6 +1,6 @@
 const ReportOnPublicServicesRendered = require('../models/ReportOnPublicServicesRendered');
 
-async function createReportOnPublicServicesRendered(req, res) {
+async function createReport(req, res) {
     try {
         const newReportOnPublicServicesRendered = await ReportOnPublicServicesRendered.create(req.body);
         return res.status(201).json(newReportOnPublicServicesRendered);
@@ -10,7 +10,7 @@ async function createReportOnPublicServicesRendered(req, res) {
     }
 }
 
-async function getAllReportsOnPublicServicesRendered(req, res) {
+async function getAllReports(req, res) {
     try {
         const reportsOnPublicServicesRendered = await ReportOnPublicServicesRendered.findAll();
         return res.status(200).json(reportsOnPublicServicesRendered);
@@ -20,7 +20,7 @@ async function getAllReportsOnPublicServicesRendered(req, res) {
     }
 }
 
-async function getReportOnPublicServicesRenderedById(req, res) {
+async function getReportById(req, res) {
     try {
         const { id } = req.params;
         const reportOnPublicServicesRendered = await ReportOnPublicServicesRendered.findByPk(id);
@@ -34,7 +34,7 @@ async function getReportOnPublicServicesRenderedById(req, res) {
     }
 }
 
-async function updateReportOnPublicServicesRendered(req, res) {
+async function updateReport(req, res) {
     try {
         const { id } = req.params;
         const [updated] = await ReportOnPublicServicesRendered.update(req.body, {
@@ -51,7 +51,7 @@ async function updateReportOnPublicServicesRendered(req, res) {
     }
 }
 
-async function deleteReportOnPublicServicesRendered(req, res) {
+async function deleteReport(req, res) {
     try {
         const { id } = req.params;
         const deleted = await ReportOnPublicServicesRendered.destroy({
@@ -68,9 +68,9 @@ async function deleteReportOnPublicServicesRendered(req, res) {
 }
 
 module.exports = {
-    createReportOnPublicServicesRendered,
-    getAllReportsOnPublicServicesRendered,
-    getReportOnPublicServicesRenderedById,
-    updateReportOnPublicServicesRendered,
-    deleteReportOnPublicServicesRendered
+    createReport,
+    getAllReports,
+    getReportById,
+    updateReport,
+    deleteReport
 };
