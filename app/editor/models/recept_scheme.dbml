@@ -1,0 +1,60 @@
+Table role {
+    id bigint [pk]
+    name varchar
+}
+
+Table users {
+    id bigint [pk]
+    username varchar
+    fullname varchar
+    password varchar
+    role_id bigint
+    email varchar
+}
+
+Table posts {
+    id bigint [pk]
+    title varchar
+    readTime int
+    countOfView int
+    datePublished date
+    tags varchar
+    content varchar
+}
+
+Table vacancy {
+    id bigint [pk]
+    title varchar
+    experience varchar
+    skills varchar
+    content varchar
+    
+
+}
+
+Table companies {
+    id bigint [pk]
+    name varchar
+    address varchar
+
+}
+
+Table users_posts {
+    user_id bigint
+    post_id bigint
+}
+
+Table companies_vacancy {
+    company_id bigint
+    vacancy_id bigint
+}
+
+
+
+
+Ref: users.role_id > role.id
+Ref: users_posts.user_id > users.id
+Ref: users_posts.post_id > posts.id
+Ref: companies_vacancy.company_id > companies.id
+Ref: companies_vacancy.vacancy_id > vacancy.id
+

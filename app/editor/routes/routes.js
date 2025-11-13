@@ -1,4 +1,8 @@
 const express=require('express');
+
+
+const router = express.Router();
+
 const { getAllUserProjects, createProject, updateProject, deleteProject, getProjectById } = require('../controllers/projectController');
 const { getAllProjectDocuments, createDocument, getDocumentById, updateDocument, deleteDocument, createDocumentByTemplate, getAllAdminDocuments } = require('../controllers/documentController');
 const { getAllUsers, getAuthenticatedUserInfo, updateUserInfo, deleteUser } = require('../controllers/userController');
@@ -60,7 +64,7 @@ const {
 const upload = require('../../../config/multer');
 const passport = require('passport');
 
-const router=express.Router()
+
 
 //USER
 router.get('/api/user/allusers', passport.authenticate('jwt', {session: false}), getAllUsers);
