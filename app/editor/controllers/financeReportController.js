@@ -2,6 +2,9 @@ const FinanceReport = require('../models/FinanceReport');
 
 async function createFinanceReport(req, res) {
     try {
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const newFinanceReport = await FinanceReport.create(req.body);
         return res.status(201).json(newFinanceReport);
     } catch (error) {
@@ -37,6 +40,9 @@ async function getFinanceReportById(req, res) {
 async function updateFinanceReport(req, res) {
     try {
         const { id } = req.params;
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const [updated] = await FinanceReport.update(req.body, {
             where: { id }
         });

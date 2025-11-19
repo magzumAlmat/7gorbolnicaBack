@@ -129,9 +129,9 @@ router.get('/api/income-and-expense-reports/public/:id', getIncomeAndExpenseRepo
 
 //FINANCE REPORT
 router.get('/api/finance-reports', passport.authenticate('jwt', {session: false}), getAllFinanceReports);
-router.post('/api/finance-reports', passport.authenticate('jwt', {session: false}), createFinanceReport);
+router.post('/api/finance-reports', passport.authenticate('jwt', {session: false}), upload.single('file'), createFinanceReport);
 router.get('/api/finance-reports/:id', passport.authenticate('jwt', {session: false}), getFinanceReportById);
-router.put('/api/finance-reports/:id', passport.authenticate('jwt', {session: false}), updateFinanceReport);
+router.put('/api/finance-reports/:id', passport.authenticate('jwt', {session: false}), upload.single('file'), updateFinanceReport);
 router.delete('/api/finance-reports/:id', passport.authenticate('jwt', {session: false}), deleteFinanceReport);
 
 router.get('/api/finance-reports/public', getAllFinanceReports);
@@ -139,9 +139,9 @@ router.get('/api/finance-reports/public/:id', getFinanceReportById);
 
 //LICENSE
 router.get('/api/licenses', passport.authenticate('jwt', {session: false}), getAllLicenses);
-router.post('/api/licenses', passport.authenticate('jwt', {session: false}), createLicense);
+router.post('/api/licenses', passport.authenticate('jwt', {session: false}), upload.single('file'), createLicense);
 router.get('/api/licenses/:id', passport.authenticate('jwt', {session: false}), getLicenseById);
-router.put('/api/licenses/:id', passport.authenticate('jwt', {session: false}), updateLicense);
+router.put('/api/licenses/:id', passport.authenticate('jwt', {session: false}), upload.single('file'), updateLicense);
 router.delete('/api/licenses/:id', passport.authenticate('jwt', {session: false}), deleteLicense);
 
 router.get('/api/licenses/public', getAllLicenses);

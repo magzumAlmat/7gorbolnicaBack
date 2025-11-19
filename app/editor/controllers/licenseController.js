@@ -2,6 +2,9 @@ const License = require('../models/License');
 
 async function createLicense(req, res) {
     try {
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const newLicense = await License.create(req.body);
         return res.status(201).json(newLicense);
     } catch (error) {
@@ -37,6 +40,9 @@ async function getLicenseById(req, res) {
 async function updateLicense(req, res) {
     try {
         const { id } = req.params;
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const [updated] = await License.update(req.body, {
             where: { id }
         });

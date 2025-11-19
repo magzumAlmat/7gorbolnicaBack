@@ -15,6 +15,10 @@ const License = sequelize.define('License', {
     expiryDate: {
         type: DataTypes.DATE,
         allowNull: true
+    },
+    path: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 }, {
     tableName: 'Licenses',
