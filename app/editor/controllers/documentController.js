@@ -26,10 +26,10 @@ async function getAllAdminDocuments(req, res) {
     console.log('getAllAdminDocuments started');
     try {
         
-        const projectId = req.params.id;
+        const adminProjectId = 1; // Assuming project with ID 1 is the admin project for public documents
         
         const projectDocuments = await ProjectDocuments.findAll({
-            where: projectId, //обернут в Number так как требуется число а приходит из req.params.id строка
+            where: { project_id: adminProjectId },
             include: [Document]
         })
         
@@ -38,6 +38,7 @@ async function getAllAdminDocuments(req, res) {
         return res.status(200).json(documents );
 
     } catch (error) {
+        console.error(error); // Added console.error for better debugging
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 }

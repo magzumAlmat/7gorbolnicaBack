@@ -2,6 +2,12 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../../../config/db');
 
 const PublicProcurementProtocol = sequelize.define('PublicProcurementProtocol', {
+    id: {
+        type: DataTypes.BIGINT,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false
+    },
     Name: {
         type: DataTypes.STRING(255),
         allowNull: false

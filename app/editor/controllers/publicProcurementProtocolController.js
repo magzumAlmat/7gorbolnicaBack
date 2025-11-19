@@ -2,6 +2,9 @@ const PublicProcurementProtocol = require('../models/PublicProcurementProtocol')
 
 async function createPublicProcurementProtocol(req, res) {
     try {
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const { Name, year, path } = req.body;
         const newPublicProcurementProtocol = await PublicProcurementProtocol.create({ Name, year, path });
         return res.status(201).json(newPublicProcurementProtocol);
@@ -38,6 +41,9 @@ async function getPublicProcurementProtocolById(req, res) {
 async function updatePublicProcurementProtocol(req, res) {
     try {
         const { id } = req.params;
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const { Name, year, path } = req.body;
         const [updated] = await PublicProcurementProtocol.update({ Name, year, path }, {
             where: { id }

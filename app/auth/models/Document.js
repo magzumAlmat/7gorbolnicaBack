@@ -10,7 +10,7 @@ const Document = sequelize.define('Document', {
         type: DataTypes.JSON
     }
 }, {
-    tableName: 'documents',
+    tableName: 'Documents',
 
 });
 

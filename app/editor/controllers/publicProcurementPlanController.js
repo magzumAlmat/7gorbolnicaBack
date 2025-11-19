@@ -2,6 +2,9 @@ const PublicProcurementPlan = require('../models/PublicProcurementPlan');
 
 async function createPublicProcurementPlan(req, res) {
     try {
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const { Name, path } = req.body;
         const newPublicProcurementPlan = await PublicProcurementPlan.create({ Name, path });
         return res.status(201).json(newPublicProcurementPlan);
@@ -38,6 +41,9 @@ async function getPublicProcurementPlanById(req, res) {
 async function updatePublicProcurementPlan(req, res) {
     try {
         const { id } = req.params;
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const { Name, path } = req.body;
         const [updated] = await PublicProcurementPlan.update({ Name, path }, {
             where: { id }

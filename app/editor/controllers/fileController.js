@@ -11,7 +11,7 @@ const uploadFile = async (req, res) => {
       mimetype,
     });
 
-    const fileUrl = `/public/uploads/${file.path.split('/').pop()}`;
+    const fileUrl = `${req.protocol}://${req.get('host')}/${file.path}`;
 
     res.status(201).json({
       message: "File uploaded successfully!",

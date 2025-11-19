@@ -2,6 +2,9 @@ const IncomeAndExpenseReport = require('../models/IncomeAndExpenseReport');
 
 async function createIncomeAndExpenseReport(req, res) {
     try {
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const newIncomeAndExpenseReport = await IncomeAndExpenseReport.create(req.body);
         return res.status(201).json(newIncomeAndExpenseReport);
     } catch (error) {
@@ -37,6 +40,9 @@ async function getIncomeAndExpenseReportById(req, res) {
 async function updateIncomeAndExpenseReport(req, res) {
     try {
         const { id } = req.params;
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const [updated] = await IncomeAndExpenseReport.update(req.body, {
             where: { id }
         });

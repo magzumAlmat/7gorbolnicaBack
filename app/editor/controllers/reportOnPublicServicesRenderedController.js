@@ -2,7 +2,14 @@ const ReportOnPublicServicesRendered = require('../models/ReportOnPublicServices
 
 async function createReport(req, res) {
     try {
-        const newReportOnPublicServicesRendered = await ReportOnPublicServicesRendered.create(req.body);
+        const { reportName, year } = req.body;
+        const filePath = req.file ? req.file.path : null; // Get path from uploaded file
+
+        const newReportOnPublicServicesRendered = await ReportOnPublicServicesRendered.create({
+            reportName,
+            year,
+            path: filePath // Use the path from the uploaded file
+        });
         return res.status(201).json(newReportOnPublicServicesRendered);
     } catch (error) {
         console.error(error);
@@ -37,6 +44,9 @@ async function getReportById(req, res) {
 async function updateReport(req, res) {
     try {
         const { id } = req.params;
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const [updated] = await ReportOnPublicServicesRendered.update(req.body, {
             where: { id }
         });

@@ -2,6 +2,9 @@ const Administration = require('../models/Administration');
 
 async function createAdministration(req, res) {
     try {
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const newAdministration = await Administration.create(req.body);
         return res.status(201).json(newAdministration);
     } catch (error) {
@@ -37,6 +40,9 @@ async function getAdministrationById(req, res) {
 async function updateAdministration(req, res) {
     try {
         const { id } = req.params;
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const [updated] = await Administration.update(req.body, {
             where: { id }
         });

@@ -2,6 +2,9 @@ const PublicProcurementAnnouncement = require('../models/PublicProcurementAnnoun
 
 async function createPublicProcurementAnnouncement(req, res) {
     try {
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const { Name, year, path } = req.body;
         const newPublicProcurementAnnouncement = await PublicProcurementAnnouncement.create({ Name, year, path });
         return res.status(201).json(newPublicProcurementAnnouncement);
@@ -38,6 +41,9 @@ async function getPublicProcurementAnnouncementById(req, res) {
 async function updatePublicProcurementAnnouncement(req, res) {
     try {
         const { id } = req.params;
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const { Name, year, path } = req.body;
         const [updated] = await PublicProcurementAnnouncement.update({ Name, year, path }, {
             where: { id }

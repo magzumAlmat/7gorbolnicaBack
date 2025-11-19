@@ -2,6 +2,9 @@ const CorporateDocument = require('../models/CorporateDocument');
 
 async function createCorporateDocument(req, res) {
     try {
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const { Name, path } = req.body;
         const newCorporateDocument = await CorporateDocument.create({ Name, path });
         return res.status(201).json(newCorporateDocument);
@@ -38,6 +41,9 @@ async function getCorporateDocumentById(req, res) {
 async function updateCorporateDocument(req, res) {
     try {
         const { id } = req.params;
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const { Name, path } = req.body;
         const [updated] = await CorporateDocument.update({ Name, path }, {
             where: { id }

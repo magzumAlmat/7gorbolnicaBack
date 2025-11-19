@@ -102,9 +102,9 @@ router.delete('/api/files/:id', passport.authenticate('jwt', {session: false}), 
 
 //ADMINISTRATION
 router.get('/api/administration', passport.authenticate('jwt', {session: false}), getAllAdministration);
-router.post('/api/administration', passport.authenticate('jwt', {session: false}), createAdministration);
+router.post('/api/administration', passport.authenticate('jwt', {session: false}), upload.single('file'), createAdministration);
 router.get('/api/administration/:id', passport.authenticate('jwt', {session: false}), getAdministrationById);
-router.put('/api/administration/:id', passport.authenticate('jwt', {session: false}), updateAdministration);
+router.put('/api/administration/:id', passport.authenticate('jwt', {session: false}), upload.single('file'), updateAdministration);
 router.delete('/api/administration/:id', passport.authenticate('jwt', {session: false}), deleteAdministration);
 
 //VACANCY
@@ -119,9 +119,9 @@ router.get('/api/vacancies/public/:id', getVacancyById);
 
 //INCOME AND EXPENSE REPORT
 router.get('/api/income-and-expense-reports', passport.authenticate('jwt', {session: false}), getAllIncomeAndExpenseReports);
-router.post('/api/income-and-expense-reports', passport.authenticate('jwt', {session: false}), createIncomeAndExpenseReport);
+router.post('/api/income-and-expense-reports', passport.authenticate('jwt', {session: false}), upload.single('file'), createIncomeAndExpenseReport);
 router.get('/api/income-and-expense-reports/:id', passport.authenticate('jwt', {session: false}), getIncomeAndExpenseReportById);
-router.put('/api/income-and-expense-reports/:id', passport.authenticate('jwt', {session: false}), updateIncomeAndExpenseReport);
+router.put('/api/income-and-expense-reports/:id', passport.authenticate('jwt', {session: false}), upload.single('file'), updateIncomeAndExpenseReport);
 router.delete('/api/income-and-expense-reports/:id', passport.authenticate('jwt', {session: false}), deleteIncomeAndExpenseReport);
 
 router.get('/api/income-and-expense-reports/public', getAllIncomeAndExpenseReports);
@@ -171,58 +171,61 @@ router.get('/api/certificate-of-accreditation/public/:id', getCertificateOfAccre
 router.get('/api/report-on-public-services-rendered', passport.authenticate('jwt', {session: false}), getAllReports);
 router.post('/api/report-on-public-services-rendered', passport.authenticate('jwt', {session: false}), upload.single("file"), createReport);
 router.get('/api/report-on-public-services-rendered/:id', passport.authenticate('jwt', {session: false}), getReportById);
-router.put('/api/report-on-public-services-rendered/:id', passport.authenticate('jwt', {session: false}), updateReport);
+router.put('/api/report-on-public-services-rendered/:id', passport.authenticate('jwt', {session: false}), upload.single('file'), updateReport);
 router.delete('/api/report-on-public-services-rendered/:id', passport.authenticate('jwt', {session: false}), deleteReport);
 
 router.get('/api/report-on-public-services-rendered/public', getAllReports);
 router.get('/api/report-on-public-services-rendered/public/:id', getReportById);
 
 //CORPORATE DOCUMENTS
-router.post('/api/corporate-documents', passport.authenticate('jwt', {session: false}), createCorporateDocument);
+router.post('/api/corporate-documents', passport.authenticate('jwt', {session: false}), upload.single('file'), createCorporateDocument);
 router.get('/api/corporate-documents', passport.authenticate('jwt', {session: false}), getAllCorporateDocuments);
 router.get('/api/corporate-documents/:id', passport.authenticate('jwt', {session: false}), getCorporateDocumentById);
-router.put('/api/corporate-documents/:id', passport.authenticate('jwt', {session: false}), updateCorporateDocument);
+router.put('/api/corporate-documents/:id', passport.authenticate('jwt', {session: false}), upload.single('file'), updateCorporateDocument);
 router.delete('/api/corporate-documents/:id', passport.authenticate('jwt', {session: false}), deleteCorporateDocument);
 
 router.get('/api/corporate-documents/public', getAllCorporateDocuments);
 router.get('/api/corporate-documents/public/:id', getCorporateDocumentById);
 
 //PUBLIC PROCUREMENT PLAN
-router.post('/api/public-procurement-plans', passport.authenticate('jwt', {session: false}), createPublicProcurementPlan);
+router.post('/api/public-procurement-plans', passport.authenticate('jwt', {session: false}), upload.single('file'), createPublicProcurementPlan);
 router.get('/api/public-procurement-plans', passport.authenticate('jwt', {session: false}), getAllPublicProcurementPlans);
 router.get('/api/public-procurement-plans/:id', passport.authenticate('jwt', {session: false}), getPublicProcurementPlanById);
-router.put('/api/public-procurement-plans/:id', passport.authenticate('jwt', {session: false}), updatePublicProcurementPlan);
+router.put('/api/public-procurement-plans/:id', passport.authenticate('jwt', {session: false}), upload.single('file'), updatePublicProcurementPlan);
 router.delete('/api/public-procurement-plans/:id', passport.authenticate('jwt', {session: false}), deletePublicProcurementPlan);
 
 router.get('/api/public-procurement-plans/public', getAllPublicProcurementPlans);
 router.get('/api/public-procurement-plans/public/:id', getPublicProcurementPlanById);
 
 //PUBLIC PROCUREMENT ANNOUNCEMENTS
-router.post('/api/public-procurement-announcements', passport.authenticate('jwt', {session: false}), createPublicProcurementAnnouncement);
+router.post('/api/public-procurement-announcements', passport.authenticate('jwt', {session: false}), upload.single('file'), createPublicProcurementAnnouncement);
 router.get('/api/public-procurement-announcements', passport.authenticate('jwt', {session: false}), getAllPublicProcurementAnnouncements);
 router.get('/api/public-procurement-announcements/:id', passport.authenticate('jwt', {session: false}), getPublicProcurementAnnouncementById);
-router.put('/api/public-procurement-announcements/:id', passport.authenticate('jwt', {session: false}), updatePublicProcurementAnnouncement);
+router.put('/api/public-procurement-announcements/:id', passport.authenticate('jwt', {session: false}), upload.single('file'), updatePublicProcurementAnnouncement);
 router.delete('/api/public-procurement-announcements/:id', passport.authenticate('jwt', {session: false}), deletePublicProcurementAnnouncement);
 
 router.get('/api/public-procurement-announcements/public', getAllPublicProcurementAnnouncements);
 router.get('/api/public-procurement-announcements/public/:id', getPublicProcurementAnnouncementById);
 
 //PUBLIC PROCUREMENT PROTOCOLS
-router.post('/api/public-procurement-protocols', passport.authenticate('jwt', {session: false}), createPublicProcurementProtocol);
+router.post('/api/public-procurement-protocols', passport.authenticate('jwt', {session: false}), upload.single('file'), createPublicProcurementProtocol);
 router.get('/api/public-procurement-protocols', passport.authenticate('jwt', {session: false}), getAllPublicProcurementProtocols);
 router.get('/api/public-procurement-protocols/:id', passport.authenticate('jwt', {session: false}), getPublicProcurementProtocolById);
-router.put('/api/public-procurement-protocols/:id', passport.authenticate('jwt', {session: false}), updatePublicProcurementProtocol);
+router.put('/api/public-procurement-protocols/:id', passport.authenticate('jwt', {session: false}), upload.single('file'), updatePublicProcurementProtocol);
 router.delete('/api/public-procurement-protocols/:id', passport.authenticate('jwt', {session: false}), deletePublicProcurementProtocol);
 
 router.get('/api/public-procurement-protocols/public', getAllPublicProcurementProtocols);
 router.get('/api/public-procurement-protocols/public/:id', getPublicProcurementProtocolById);
 
 
-// CRUD маршруты
-router.get('/', getAll);
-router.get('/:id', getById);
-router.post('/', create);
-router.put('/:id', update);
-router.delete('/:id', remove);
+//INFORMATION MATERIAL
+router.get('/api/information-materials', passport.authenticate('jwt', {session: false}), getAll);
+router.post('/api/information-materials', passport.authenticate('jwt', {session: false}), create);
+router.get('/api/information-materials/:id', passport.authenticate('jwt', {session: false}), getById);
+router.put('/api/information-materials/:id', passport.authenticate('jwt', {session: false}), update);
+router.delete('/api/information-materials/:id', passport.authenticate('jwt', {session: false}), remove);
+
+router.get('/api/information-materials/public', getAll);
+router.get('/api/information-materials/public/:id', getById);
 
 module.exports = router;
