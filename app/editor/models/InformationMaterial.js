@@ -12,7 +12,7 @@ const InformationMaterial = sequelize.define('InformationMaterial', {
         type: DataTypes.STRING(255),
         allowNull: false
     },
-    filePath: {
+    urlOfFile: {
         type: DataTypes.STRING(255),
         allowNull: false
     }

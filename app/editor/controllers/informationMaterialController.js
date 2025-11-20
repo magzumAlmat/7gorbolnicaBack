@@ -2,6 +2,9 @@ const InformationMaterial = require('../models/InformationMaterial');
 
 async function create(req, res) {
     try {
+        if (req.file) {
+            req.body.urlOfFile = req.file.path;
+        }
         const newInformationMaterial = await InformationMaterial.create(req.body);
         return res.status(201).json(newInformationMaterial);
     } catch (error) {
@@ -37,6 +40,9 @@ async function getById(req, res) {
 async function update(req, res) {
     try {
         const { id } = req.params;
+        if (req.file) {
+            req.body.urlOfFile = req.file.path;
+        }
         const [updated] = await InformationMaterial.update(req.body, {
             where: { id }
         });

@@ -15,6 +15,10 @@ const CertificateOfAccreditation = sequelize.define('CertificateOfAccreditation'
     issueDate: {
         type: DataTypes.DATE,
         allowNull: true
+    },
+    path: {
+        type: DataTypes.STRING,
+        allowNull: true
     }
 }, {
     tableName: 'CertificateOfAccreditations',

@@ -61,6 +61,14 @@ const {
     deletePublicProcurementProtocol
 } = require('../controllers/publicProcurementProtocolController');
 
+const {
+    createPrice,
+    getAllPrices,
+    getPriceById,
+    updatePrice,
+    deletePrice
+} = require('../controllers/priceController');
+
 const upload = require('../../../config/multer');
 const passport = require('passport');
 
@@ -149,9 +157,9 @@ router.get('/api/licenses/public/:id', getLicenseById);
 
 //ANTI-CORRUPTION
 router.get('/api/anti-corruption', passport.authenticate('jwt', {session: false}), getAllAntiCorruption);
-router.post('/api/anti-corruption', passport.authenticate('jwt', {session: false}), createAntiCorruption);
+router.post('/api/anti-corruption', passport.authenticate('jwt', {session: false}), upload.single('file'), createAntiCorruption);
 router.get('/api/anti-corruption/:id', passport.authenticate('jwt', {session: false}), getAntiCorruptionById);
-router.put('/api/anti-corruption/:id', passport.authenticate('jwt', {session: false}), updateAntiCorruption);
+router.put('/api/anti-corruption/:id', passport.authenticate('jwt', {session: false}), upload.single('file'), updateAntiCorruption);
 router.delete('/api/anti-corruption/:id', passport.authenticate('jwt', {session: false}), deleteAntiCorruption);
 
 router.get('/api/anti-corruption/public', getAllAntiCorruption);
@@ -159,9 +167,9 @@ router.get('/api/anti-corruption/public/:id', getAntiCorruptionById);
 
 //CERTIFICATE OF ACCREDITATION
 router.get('/api/certificate-of-accreditation', passport.authenticate('jwt', {session: false}), getAllCertificateOfAccreditations);
-router.post('/api/certificate-of-accreditation', passport.authenticate('jwt', {session: false}), createCertificateOfAccreditation);
+router.post('/api/certificate-of-accreditation', passport.authenticate('jwt', {session: false}), upload.single('file'), createCertificateOfAccreditation);
 router.get('/api/certificate-of-accreditation/:id', passport.authenticate('jwt', {session: false}), getCertificateOfAccreditationById);
-router.put('/api/certificate-of-accreditation/:id', passport.authenticate('jwt', {session: false}), updateCertificateOfAccreditation);
+router.put('/api/certificate-of-accreditation/:id', passport.authenticate('jwt', {session: false}), upload.single('file'), updateCertificateOfAccreditation);
 router.delete('/api/certificate-of-accreditation/:id', passport.authenticate('jwt', {session: false}), deleteCertificateOfAccreditation);
 
 router.get('/api/certificate-of-accreditation/public', getAllCertificateOfAccreditations);
@@ -220,12 +228,22 @@ router.get('/api/public-procurement-protocols/public/:id', getPublicProcurementP
 
 //INFORMATION MATERIAL
 router.get('/api/information-materials', passport.authenticate('jwt', {session: false}), getAll);
-router.post('/api/information-materials', passport.authenticate('jwt', {session: false}), create);
+router.post('/api/information-materials', passport.authenticate('jwt', {session: false}), upload.single('file'), create);
 router.get('/api/information-materials/:id', passport.authenticate('jwt', {session: false}), getById);
-router.put('/api/information-materials/:id', passport.authenticate('jwt', {session: false}), update);
+router.put('/api/information-materials/:id', passport.authenticate('jwt', {session: false}), upload.single('file'), update);
 router.delete('/api/information-materials/:id', passport.authenticate('jwt', {session: false}), remove);
 
 router.get('/api/information-materials/public', getAll);
 router.get('/api/information-materials/public/:id', getById);
+
+//PRICES
+router.get('/api/prices', passport.authenticate('jwt', {session: false}), getAllPrices);
+router.post('/api/prices', passport.authenticate('jwt', {session: false}), upload.single('file'), createPrice);
+router.get('/api/prices/:id', passport.authenticate('jwt', {session: false}), getPriceById);
+router.put('/api/prices/:id', passport.authenticate('jwt', {session: false}), upload.single('file'), updatePrice);
+router.delete('/api/prices/:id', passport.authenticate('jwt', {session: false}), deletePrice);
+
+router.get('/api/prices/public', getAllPrices);
+router.get('/api/prices/public/:id', getPriceById);
 
 module.exports = router;

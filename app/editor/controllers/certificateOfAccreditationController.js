@@ -2,6 +2,9 @@ const CertificateOfAccreditation = require('../models/CertificateOfAccreditation
 
 async function createCertificateOfAccreditation(req, res) {
     try {
+        if (req.file) {
+            req.body.path = req.file.path;
+        }
         const newCertificateOfAccreditation = await CertificateOfAccreditation.create(req.body);
         return res.status(201).json(newCertificateOfAccreditation);
     } catch (error) {

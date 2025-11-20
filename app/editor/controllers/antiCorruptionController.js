@@ -2,6 +2,9 @@ const AntiCorruption = require('../models/AntiCorruption');
 
 async function createAntiCorruption(req, res) {
     try {
+        if (req.file) {
+            req.body.documentPath = req.file.path;
+        }
         const newAntiCorruption = await AntiCorruption.create(req.body);
         return res.status(201).json(newAntiCorruption);
     } catch (error) {
@@ -37,6 +40,9 @@ async function getAntiCorruptionById(req, res) {
 async function updateAntiCorruption(req, res) {
     try {
         const { id } = req.params;
+        if (req.file) {
+            req.body.documentPath = req.file.path;
+        }
         const [updated] = await AntiCorruption.update(req.body, {
             where: { id }
         });
